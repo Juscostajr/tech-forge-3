@@ -1,27 +1,16 @@
-import java.util.Scanner;
+import model.Cena;
+import repository.CenaDAO;
+
+import java.sql.SQLException;
 
 public class Main {
     public static void main(String[] args) {
+        try {
+            Cena cena = CenaDAO.findCenaById(1);
 
-        Scanner sc = new Scanner(System.in);
-
-        Carro carro = new Carro(
-                1995,
-                "Monza",
-                "Branco",
-                "Chevrolet"
-        );
-
-        Carro carro2 = new Carro(
-                2012,
-                "206",
-                "Vermelho",
-                "Peugeot"
-        );
-        System.out.println(carro2.getModelo());
-        System.out.println(carro2.getIsentoIPVA());
-        System.out.println(carro2.getMarca());
-
-
+            System.out.println(cena.toString());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
