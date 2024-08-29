@@ -13,7 +13,7 @@ public class Mysql {
             connection = DriverManager.getConnection(
                     "jdbc:mysql://localhost:3306/aula-5",
                     "root",
-                    ""
+                    "123456"
             );
             return connection;
         } catch (SQLException e) {
