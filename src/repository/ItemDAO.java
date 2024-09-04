@@ -27,9 +27,8 @@ public class ItemDAO {
             // preencher o restante das propriedades
 
             Integer idCenaAtual = resultSet.getInt("id_cena_atual");
-            Cena cenaAtual = CenaDAO.findCenaById(idCenaAtual);
 
-            item.setCenaAtual(cenaAtual);
+            item.setIdCenaAtual(idCenaAtual);
 
             itens.add(item);
         }
