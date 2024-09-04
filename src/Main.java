@@ -1,33 +1,25 @@
+import com.google.gson.Gson;
 import model.Cena;
-import model.Item;
+import model.Save;
 import repository.CenaDAO;
-import repository.ItemDAO;
-
-import java.sql.SQLException;
-import java.util.List;
+import repository.SaveDAO;
+import spark.Spark;
 
 public class Main {
+    private static final Gson Gson = new Gson();
     public static void main(String[] args) {
         try {
-            Cena cena = CenaDAO.findCenaById(1);
-            System.out.println(cena.toString());
+            Save save = SaveDAO.novoJogo();
+            String saveJson = Gson.toJson(save);
+            Spark.get("/", (req,res) -> saveJson);
 
-            List<Item> itens = ItemDAO.findItensByScene(cena);
-            System.out.println("Itens: " + itens);
+            Spark.get("/cena/:id", (req,res) -> {
+                Integer cenaId = Integer.parseInt(req.params(":id"));
+                Cena cena = CenaDAO.findCenaById(cenaId);
+                return Gson.toJson(cena);
+            });
 
-            List<Cena> cenas = CenaDAO.findAll();
-            System.out.println("Cenas antes do insert:");
-            System.out.println(cenas);
-
-            Cena novaCena = new Cena();
-            novaCena.setDescricao("Nova cena que foi inserida pelo java brabíssimo");
-            CenaDAO.insertCena(novaCena);
-
-            cenas = CenaDAO.findAll();
-            System.out.println("Cenas depois do insert:");
-            System.out.println(cenas);
-
-        } catch (SQLException e) {
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
