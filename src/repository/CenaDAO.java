@@ -11,6 +11,8 @@ import java.util.List;
 
 // Data Access Object
 public class CenaDAO {
+
+
     public static Cena findCenaById(Integer id) throws SQLException {
         Connection conn = Mysql.getConnection();
         String sql = "SELECT * FROM cenas WHERE id_cena = ?";
